@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proyecto camisetas Celta de Vigo</title>
+<meta name="description" content="Colección personal de camisetas del Celta de Vigo.">
+<style>
+:root { --bg: #f4f8fb; --surface: #fff; --fg: #0f2433; --muted: #55707f; --line: #d6e3ec; --band: #8ac3ee; --band-fg: #0b2a40; --red: #c8102e; --chip: #e6f1f9; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0b1820; --surface: #12232e; --fg: #e4eef5; --muted: #8fa9b8; --line: #20394a; --band: #163246; --band-fg: #e4eef5; --red: #ff5a6e; --chip: #1a3242; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: 16px; }
+header { background: var(--band); color: var(--band-fg); border-bottom: 4px solid var(--red); }
+header .wrap { padding-block: 26px; }
+h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.3rem); line-height: 1.1; text-wrap: balance; }
+header p { margin: 6px 0 0; }
+main { padding-block: 6px 28px; }
+section { margin-top: 24px; }
+h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.art { position: relative; aspect-ratio: 1; background: var(--chip); display: grid; place-items: center; }
+.art svg { width: 76%; height: auto; }
+.mw { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; border-radius: 99px; padding: 2px 8px; font-size: .68rem; font-weight: 700; text-transform: uppercase; }
+@media (prefers-color-scheme: dark) { .mw { color: #111; } }
+figcaption { padding: 9px 10px 11px; }
+figcaption b { display: block; }
+figcaption span { display: block; color: var(--muted); font-size: .84rem; overflow-wrap: anywhere; }
+footer { padding-block: 0 28px; color: var(--muted); font-size: .8rem; }
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Proyecto camisetas Celta de Vigo</h1><p id="total"></p></div></header>
+<main class="wrap" id="list"></main>
+<footer class="wrap">Colección personal, sin relación oficial con el RC Celta de Vigo. Dibujos orientativos.</footer>
+<script>
+const C = [
+    {
+        "temporada":  "2025-26",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Radu",
+        "mw":  false,
+        "a":  "#1c2a4a",
+        "b":  "#8ac3ee",
+        "half":  false
+    },
+    {
+        "temporada":  "2024-25",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Williot Swedberg",
+        "mw":  false,
+        "a":  "#8ac3ee",
+        "b":  "#ffffff",
+        "half":  false
+    },
+    {
+        "temporada":  "2024-25",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Marcos Alonso",
+        "mw":  false,
+        "a":  "#1c2a4a",
+        "b":  "#f26a21",
+        "half":  false
+    },
+    {
+        "temporada":  "2024-25",
+        "tipo":  "Tercera",
+        "edicion":  "",
+        "jugador":  "Fer López",
+        "mw":  false,
+        "a":  "#f26a21",
+        "b":  "#8ac3ee",
+        "half":  false
+    },
+    {
+        "temporada":  "2024-25",
+        "tipo":  "Tercera",
+        "edicion":  "",
+        "jugador":  "Iago Aspas",
+        "mw":  false,
+        "a":  "#f26a21",
+        "b":  "#8ac3ee",
+        "half":  false
+    },
+    {
+        "temporada":  "2024-25",
+        "tipo":  "Cuarta",
+        "edicion":  "",
+        "jugador":  "Iago Aspas",
+        "mw":  false,
+        "a":  "#111111",
+        "b":  "#ffffff",
+        "half":  false
+    },
+    {
+        "temporada":  "2023-24",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "",
+        "mw":  false,
+        "a":  "#8e2430",
+        "b":  "#8ac3ee",
+        "half":  false
+    },
+    {
+        "temporada":  "2021-22",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Fran Beltrán",
+        "mw":  false,
+        "a":  "#8ac3ee",
+        "b":  "#5b6470",
+        "half":  false
+    },
+    {
+        "temporada":  "2016-17",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Fontás",
+        "mw":  true,
+        "a":  "#8ac3ee",
+        "b":  "#1c2a4a",
+        "half":  false
+    },
+    {
+        "temporada":  "2015-16",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Tucu Hernández",
+        "mw":  false,
+        "a":  "#34383f",
+        "b":  "#c8102e",
+        "half":  false
+    },
+    {
+        "temporada":  "2014-15",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Nolito",
+        "mw":  false,
+        "a":  "#3da63f",
+        "b":  "#14532d",
+        "half":  false
+    },
+    {
+        "temporada":  "2013-14",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Oubiña",
+        "mw":  true,
+        "a":  "#8ac3ee",
+        "b":  "#1c2a4a",
+        "half":  false
+    },
+    {
+        "temporada":  "2011-12",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "",
+        "mw":  false,
+        "a":  "#d8232a",
+        "b":  "#8ac3ee",
+        "half":  false
+    },
+    {
+        "temporada":  "2006-10",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Ghilas",
+        "mw":  true,
+        "a":  "#f0641e",
+        "b":  "#ffffff",
+        "half":  false
+    },
+    {
+        "temporada":  "2003-04",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Jesuli",
+        "mw":  true,
+        "a":  "#8ac3ee",
+        "b":  "#1c2a4a",
+        "half":  false
+    },
+    {
+        "temporada":  "2003-04",
+        "tipo":  "Segunda",
+        "edicion":  "",
+        "jugador":  "Gustavo López",
+        "mw":  false,
+        "a":  "#d8232a",
+        "b":  "#ffffff",
+        "half":  true
+    },
+    {
+        "temporada":  "2003-04",
+        "tipo":  "Especial",
+        "edicion":  "Champions League",
+        "jugador":  "Juanfran",
+        "mw":  false,
+        "a":  "#8ac3ee",
+        "b":  "#6fb0e0",
+        "half":  false
+    },
+    {
+        "temporada":  "2001-02",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Mostovoi",
+        "mw":  false,
+        "a":  "#8ac3ee",
+        "b":  "#ffffff",
+        "half":  false
+    },
+    {
+        "temporada":  "1997-98",
+        "tipo":  "Primera",
+        "edicion":  "",
+        "jugador":  "Michel Salgado",
+        "mw":  false,
+        "a":  "#8ac3ee",
+        "b":  "#1c2a4a",
+        "half":  false
+    }
+];
+const esc = s => String(s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const shirt = (a, b, half) => `<svg viewBox="0 0 100 96" aria-hidden="true">
+  <path d="M32 8 L42 4 Q50 11 58 4 L68 8 L92 24 L83 40 L72 34 L72 92 L28 92 L28 34 L17 40 L8 24 Z" fill="${a}" stroke="rgba(0,0,0,.28)"/>
+  ${half ? `<path d="M50 7.5 Q54 7 58 4 L68 8 L92 24 L83 40 L72 34 L72 92 L50 92 Z" fill="${b}"/>` : ""}
+  <path d="M8 24 L17 40 L20 38.4 L11 22.2 Z M92 24 L83 40 L80 38.4 L89 22.2 Z" fill="${b}"/>
+  <path d="M42 4 Q50 11 58 4 L56 3 Q50 8 44 3 Z" fill="${b}" stroke="${b}" stroke-width="2"/></svg>`;
+document.getElementById("total").textContent = `${C.length} camisetas en la colección`;
+const seasons = [...new Set(C.map(i => i.temporada))];
+document.getElementById("list").innerHTML = seasons.map(s => `<section><h2>${esc(s)}</h2><div class="grid">${C.filter(i => i.temporada === s).map(i => `<figure>
+  <div class="art">${shirt(i.a, i.b, i.half)}${i.mw ? '<span class="mw">Match worn</span>' : ""}</div>
+  <figcaption><b>${esc(i.tipo)}</b>${i.edicion ? `<span>${esc(i.edicion)}</span>` : ""}${i.jugador ? `<span>${esc(i.jugador)}</span>` : ""}</figcaption>
+</figure>`).join("")}</div></section>`).join("");
+</script>
+</body>
+</html>
